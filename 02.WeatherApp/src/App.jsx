@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import  { useState, useEffect } from "react";
+import API_KEY from "./apikey"
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [location, setLocation] = useState("london"); 
+  const [data, setData] = useState(null);
+
+  const handleChange = (e) => {
+    setLocation(e.target.value); 
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://api.weatherapi.com/v1/timezone.json?key=${API_KEY}&q=${location}`);
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [location]);
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleChange();
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <form id="form" onSubmit={handleSubmit}>
+        <label htmlFor="inputPlace">Enter Place</label>
+        <input type="text" className="inputPlace" onChange={handleChange} placeholder="Enter City Location to get Details" />
+        <button type="submit">Submit</button>
+      </form>
+      
+      {data && (
+        <div>
+          <h1>Data for {location}</h1>
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        </div>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
