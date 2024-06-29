@@ -8,7 +8,7 @@ const ModalComponent = () => {
     };
 
     return (
-        <>
+        <div className='container'>
             <button onClick={toggleModal}>Open Modal</button>
 
             {isOpen && <div className="blurcontainer" onClick={toggleModal}></div>}
@@ -19,7 +19,7 @@ const ModalComponent = () => {
                 <h2>Modal Title</h2>
                 <p>This is the modal content. You can add any content here.</p>
             </div>
-        </>
+        </div>
     );
 };
 
