@@ -1,0 +1,27 @@
+#drop{
+    height: 500px;
+    width: 500px;
+    border: 1px solid black;
+    margin: 5px;
+    background-color: rgba(134, 142, 195, 0.973);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hide{
+    display:none;
+}
+#root{
+    background-color: rgb(255, 251, 0);
+    height: 10rem;
+    width: 10rem;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+}
+.drag-over {
+    border: dashed 3px red;
+}

@@ -5,7 +5,7 @@ import {Reorder} from 'framer-motion'
 
 export default function App() {
 
-  const [listItems, setListItems] = useState(["Aman","Suyash","Yashi"]);
+  const [listItems, setListItems] = useState(["Aman","Suyash","Pandey"]);
 
   return (
     <Reorder.Group axis="y" onReorder={setListItems} values={listItems}>
