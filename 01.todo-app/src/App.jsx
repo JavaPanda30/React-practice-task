@@ -1,6 +1,6 @@
 import  { useState } from 'react';
 import TaskList from './Components/TaskList';
-
+import "./App.css"
 function App() {
 
   const [task, setTask] = useState([]);
@@ -31,6 +31,7 @@ function App() {
 
   return (
     <>
+    <h1>To-Do Task Planner </h1>
       <form onSubmit={handleFormSubmit}>
         <label htmlFor="inputTask">Add Task</label>
         <input

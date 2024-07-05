@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import  { useState } from 'react';
+import './TaskList.css';
 
 function TaskList({ task, onDelete, onEdit }) {
-  
-  const [editMode, setEditMode] = useState(null); 
+  const [editMode, setEditMode] = useState(null);
   const [editText, setEditText] = useState('');
 
   const handleDelete = (index) => {
@@ -21,7 +21,6 @@ function TaskList({ task, onDelete, onEdit }) {
   };
 
   const handleCancelEdit = () => {
-    // Exit edit mode without saving changes
     setEditMode(null);
   };
 
@@ -30,33 +29,49 @@ function TaskList({ task, onDelete, onEdit }) {
   };
 
   return (
-    <div>
-      {task.map((item, index) => (
-        <div key={index}>
-          {editMode === index ? (
-            // Render edit form if editMode is active for this task
-            <div>
-              <label htmlFor="editTask">Edit Task</label>
-              <input
-                type="text"
-                placeholder="Edit task here"
-                value={editText}
-                onChange={handleChange}
-              />
-              <button onClick={() => handleSaveEdit(index)}>Save</button>
-              <button onClick={handleCancelEdit}>Cancel</button>
-            </div>
-          ) : (
-            // Render task and buttons if not in edit mode
-            <div>
-              {item}
-              <button onClick={() => handleDelete(index)}>Delete</button>
-              <button onClick={() => handleEdit(index)}>Edit</button>
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
+    <table className="task-table">
+      <thead>
+        <tr>
+          <th width="10px">Serial No.</th>
+          <th>Task</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {task.map((item, index) => (
+          <tr key={index}>
+            <td>{index + 1}</td>
+            <td>
+              {editMode === index ? (
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Edit task here"
+                    value={editText}
+                    onChange={handleChange}
+                  />
+                </div>
+              ) : (
+                <div>{item}</div>
+              )}
+            </td>
+            <td>
+              {editMode === index ? (
+                <div>
+                  <button onClick={() => handleSaveEdit(index)}>Save</button>
+                  <button onClick={handleCancelEdit}>Cancel</button>
+                </div>
+              ) : (
+                <div>
+                  <button onClick={() => handleDelete(index)}>Delete</button>
+                  <button onClick={() => handleEdit(index)}>Edit</button>
+                </div>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
